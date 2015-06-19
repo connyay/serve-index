@@ -289,10 +289,12 @@ function createHtmlFileList(files, dir, useIcons, view) {
     var size = file.stat && !isDir
       ? file.stat.size
       : '';
-
-    return '<li><a href="'
-      + escapeHtml(normalizeSlashes(normalize(path.join('/'))))
-      + '" class="' + escapeHtml(classes.join(' ')) + '"'
+    var href = escapeHtml(normalizeSlashes(normalize(path.join('/'))));
+    if (isDir) {
+      href += '/';
+    }
+    return '<li><a href="' + href + '"'
+      + ' class="' + escapeHtml(classes.join(' ')) + '"'
       + ' title="' + escapeHtml(file.name) + '">'
       + '<span class="name">' + escapeHtml(file.name) + '</span>'
       + '<span class="size">' + escapeHtml(size) + '</span>'
